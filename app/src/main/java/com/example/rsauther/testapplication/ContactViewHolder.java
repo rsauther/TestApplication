@@ -27,13 +27,8 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         mContext = itemView.getContext();
         name = (TextView) itemView.findViewById(R.id.name);
         position = (TextView) itemView.findViewById(R.id.position_data);
-//        birthdate = (TextView) itemView.findViewById(R.id.birthdate_edit_text);
         startdate = (TextView) itemView.findViewById(R.id.startdate_data);
         project = (TextView) itemView.findViewById(R.id.project_data);
-//        name = (TextView) itemView.findViewById(R.id.name_edit_text);
-//        position = (TextView) itemView.findViewById(R.id.position_edit_text);
-//        birthdate = (TextView) itemView.findViewById(R.id.birthdate_edit_text);
-//        startdate = (TextView) itemView.findViewById(R.id.startdate_edit_text);
         avatar = (ImageView) itemView.findViewById(R.id.user_icon);
         //hobbies = (TextView) itemView.findViewById(R.id.hobbies);
         bio = (TextView) itemView.findViewById(R.id.bio);
@@ -43,14 +38,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         name.setText(contact.getName());
         position.setText(contact.getPosition());
         startdate.setText(contact.getStartdate());
-//        birthdate.setText(contact.getBirthdate());
-
-//        avatar.setText(contact.getAvatar());
-
-//        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
         Picasso.with(mContext).load(contact.getAvatar()).into(avatar);
-
-
         project.setText(contact.getProject());
         //hobbies.setText(contact.getHobbies());
         bio.setText(contact.getBio());

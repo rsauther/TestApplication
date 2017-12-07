@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         GetContactsTask task = new GetContactsTask(new ICallbackEvent() {
             @Override
             public void onCompleted(ArrayList<HashMap<String, String>> obj) {
-                
+
                 //// TODO: 11/29/17 use a recycler view
                 int i = 0;
-                for(i=0; i < obj.size(); i++){
+                for (i = 0; i < obj.size(); i++) {
                     Contact c = new Contact();
                     c.setName(obj.get(i).get("name"));
                     c.setPosition(obj.get(i).get("position"));
@@ -73,19 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
                 mAdapter.notifyDataSetChanged();
 
-
-
-//                ListAdapter adapter = new SimpleAdapter(
-//                        MainActivity.this, obj,
-//                        R.layout.list_item, new String[]{"name", "position",
-//                        "birthdate", "startdate", "avatar"}, new int[]{R.id.name,
-//                        R.id.position, R.id.birthdate, R.id.startdate, R.id.avatar});
-//               lv.setAdapter(adapter);
             }
 
             @Override
             public void onError(Exception e) {
-                Toast.makeText(getApplicationContext(),"OOOOOOOPs" ,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
             }
         });
         task.execute(url);
@@ -136,26 +128,14 @@ public class MainActivity extends AppCompatActivity {
                     R.id.position, R.id.birthdate, R.id.startdate, R.id.avatar});
 //               lv.setAdapter(adapter);
 
-
 //            new GetContacts().execute();
 
             int num;
             num = (int) (14 * Math.random());
             String pos;
             pos = contactList.get(num).values().toString();
-////            String pos = contactList.get(1).toString();
             String[] details = new String[]{pos};
             Toast.makeText(getApplicationContext(), pos, Toast.LENGTH_LONG).show();
-
-////            Log.i("test: ", pos);
-
-            //         int num;
-//            num = (int)(140 * Math.random());
-//            int colorToUse = ta.getResourceId(num, 0);
-//            Advertisement a = new Advertisement();
-//            a.setBackgroundColor(getResources().getColor(colorToUse));
-//            a.setAdColorText(colorNames[num]);
-//            mAdapter.addItem(a);
 
         }
 
@@ -163,49 +143,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-// create a method that creates a new advertisement and passes it to the adapter
-
-//    private class GetContacts extends AsyncTask<Void, Void, Void> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            // Showing progress dialog
-//            pDialog = new ProgressDialog(MainActivity.this);
-//            pDialog.setMessage("Please wait...");
-//
-//            pDialog.show();
-//
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            super.onPostExecute(result);
-//            // Dismiss the progress dialog
-//            if (pDialog.isShowing())
-//                pDialog.dismiss();
-//            /**
-//             * Updating parsed JSON data into ListView
-//             * */
-////        ListAdapter adapter = new SimpleAdapter(
-////                MainActivity.this, contactList,
-////                R.layout.list_item, new String[]{"name", "position",
-////                "birthdate", "startdate", "avatar"}, new int[]{R.id.name,
-////                R.id.position, R.id.birthdate, R.id.startdate, R.id.avatar});
-////
-////        lv.setAdapter(adapter);
-//        }
-//    }
-
 }
-//{
-//        "People": [{
-//        "name": "Nick Bhatia",
-//        "position": "Director, Mobile Engineering",
-//        "birthdate": "1/1/1986",
-//        "startdate": "September 05, 2011",
-//        "avatar": "https://s3.amazonaws.com/uploads.hipchat.com/photos/1296774/ITVdTnjBUBTNKMj_125.png"
-//        }
+
