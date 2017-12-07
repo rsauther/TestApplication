@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/image1">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#f00"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:text="text1"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text1"
+            android:layout_centerInParent="true"
+            android:text="button" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_margin="10dp"
+        android:background="@color/Wheat"
+        android:gravity="top|center_horizontal"
+        android:src="@drawable/paperairplane"
+        android:tint="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/image1"
+        android:background="#f00"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:text="text2"
+        android:textAlignment="center"
+        android:textColor="@color/Black"
+        android:textSize="16sp"
+
+        />
+
+
+</RelativeLayout>
+
+
+    <!--create an ad layout that is relative with 2 textview, image view, and button-->
+<!--How to make an http request in android-->
+<!--figure out http verbs GET and POST, also PUT and DELETE-->
+<!--familiarize yourself with the class asynctask(this is a background operation) simple or 101-->
+<!--HW - create asynktask-->
+<!--add button to kick off task-->
+
