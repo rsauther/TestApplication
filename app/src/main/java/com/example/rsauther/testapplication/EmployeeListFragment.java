@@ -25,6 +25,7 @@ public class EmployeeListFragment extends Fragment{
         // 1) git
         // 2) comment out recycler view and move to here and get it to compile
         // remove stuff from activity_main.xml
+        //git check
 
 
         return mRootView;
