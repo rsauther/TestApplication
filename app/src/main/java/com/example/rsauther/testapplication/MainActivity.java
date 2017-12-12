@@ -1,55 +1,42 @@
 package com.example.rsauther.testapplication;
 
-import android.content.Intent;
-import android.content.res.TypedArray;
-import android.support.annotation.ColorInt;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerAdapter mAdapter;
-    private String TAG = MainActivity.class.getSimpleName();
-    private ProgressDialog pDialog;
-    private ListView lv;
-    private static String url = "https://img.staging.medscape.com/pi/iphone/AndroidLearning.json";
 
-
-    ArrayList<HashMap<String, String>> contactList;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String URL = "https://img.staging.medscape.com/pi/iphone/AndroidLearning.json";
+    private ArrayList<HashMap<String, String>> mContactList;
+    private ViewPager mViewPager;
+    private EmployeeListFragment mQaFragment;
+    private EmployeeListFragment mDevFragment;
+    private EmployeeListFragment mProductFragment;
+    private ViewPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button AddAdButton = (Button) findViewById(R.id.add_ad);
-//new
-        contactList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.list);
+        mContactList = new ArrayList<>();
+        mViewPager = (ViewPager)findViewById(R.id.view_pager);
+        mQaFragment = new EmployeeListFragment();
+        mDevFragment = new EmployeeListFragment();
+        mProductFragment = new EmployeeListFragment();
+        mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mAdapter.addFragment(mQaFragment);
+        mAdapter.addFragment(mDevFragment);
+        mAdapter.addFragment(mProductFragment);
+        mViewPager.setAdapter(mAdapter);
+
+        //Lookup how to add a tablayout (type of view) to view pager
 
         GetContactsTask task = new GetContactsTask(new ICallbackEvent() {
             @Override
@@ -67,12 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     c.setProject(obj.get(i).get("project"));
                     c.setHobbies(obj.get(i).get("hobbies"));
                     c.setBio(obj.get(i).get("bio"));
-                    mAdapter.addItem(c);
-
                 }
-
-                mAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -80,68 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
             }
         });
-        task.execute(url);
-
-
-        //From recyclerview setup
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new RecyclerAdapter(getApplicationContext());
-        mRecyclerView.setAdapter(mAdapter);
-
-        AddAdButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(getApplicationContext(),"Click" ,Toast.LENGTH_LONG).show();
-                createAd(2);
-            }
-        });
+        task.execute(URL);
     }
 
-    public void createAd(int condition) {
-        String[] colorNames = getResources().getStringArray(R.array.colorNames);
-        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
-//        ta.getResourceId(1,0);
-        if (condition == 1) {
-            for (int i = 0; i < ta.length(); i++) {
-                int colorToUse = ta.getResourceId(i, 0);
-                Advertisement a = new Advertisement();
-                a.setBackgroundColor(getResources().getColor(colorToUse));
-                a.setAdColorText(colorNames[i]);
-                mAdapter.addItem(a);
-            }
 
-        } else if (condition == 0) {
-            int num;
-            num = (int) (140 * Math.random());
-            int colorToUse = ta.getResourceId(num, 0);
-            Advertisement a = new Advertisement();
-            a.setBackgroundColor(getResources().getColor(colorToUse));
-            a.setAdColorText(colorNames[num]);
-            mAdapter.addItem(a);
-
-        } else if (condition == 2) {
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, contactList,
-                    R.layout.list_item, new String[]{"name", "position",
-                    "birthdate", "startdate", "avatar"}, new int[]{R.id.name,
-                    R.id.position, R.id.birthdate, R.id.startdate, R.id.avatar});
-//               lv.setAdapter(adapter);
-
-//            new GetContacts().execute();
-
-            int num;
-            num = (int) (14 * Math.random());
-            String pos;
-            pos = contactList.get(num).values().toString();
-            String[] details = new String[]{pos};
-            Toast.makeText(getApplicationContext(), pos, Toast.LENGTH_LONG).show();
-
-        }
-
-        mAdapter.notifyDataSetChanged();
-
-
-    }
 }
 
