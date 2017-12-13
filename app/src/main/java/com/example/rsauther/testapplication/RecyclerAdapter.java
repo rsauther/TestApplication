@@ -66,8 +66,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //    public void addItem(Advertisement a){
 //        mItems.add(a);
 //    }
-public void addItem(Object o){
+    public void addItem(Object o){
     mItems.add(o);
 }
+
+    public void addItems(ArrayList<Contact> contacts){
+        mItems.addAll(contacts);
+    }
+
 
 }

@@ -16,7 +16,7 @@ import java.util.HashMap;
  * Created by rsauther on 11/28/17.
  */
 
-public class GetContactsTask extends AsyncTask <String, Void, ArrayList<HashMap<String, String>>>{
+public class GetContactsTask extends AsyncTask <String, Void, ArrayList<Contact>>{
 
     private final String TAG = GetContactsTask.class.getSimpleName();
 
@@ -28,10 +28,10 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<HashMap<
 
 
     @Override
-    protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
+    protected ArrayList<Contact> doInBackground(String... args) {
 
         HttpHandler sh = new HttpHandler();
-        ArrayList<HashMap<String, String>> contactList = new ArrayList<>();
+        ArrayList<Contact> contactList = new ArrayList<>();
         String url = args[0];
         // Making a request to url and getting response
         String jsonStr = null;
@@ -49,34 +49,20 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<HashMap<
                 JSONObject jsonObj = new JSONObject(jsonStr);
 
                 // Getting JSON Array node
-                JSONArray contacts = jsonObj.getJSONArray("People");
+                JSONArray jsonResult = jsonObj.getJSONArray("People");
 
                 // looping through All Contacts
-                for (int i = 0; i < contacts.length(); i++) {
-                    JSONObject c = contacts.getJSONObject(i);
-                    String name = c.getString("name");
-                    String position = c.getString("position");
-                    String birthdate = c.getString("birthdate");
-                    String startdate = c.getString("startdate");
-                    String avatar = c.getString("avatar");
-                    String project = c.getString("project");
-                    String hobbies = c.getString("hobbies");
-                    String bio = c.getString("bio");
-
-                    // tmp hash map for single contact
-                    HashMap<String, String> contact = new HashMap<>();
-
-                    // adding each child node to HashMap key => value
-                    contact.put("name", name);
-                    contact.put("position", position);
-                    contact.put("birthdate", birthdate);
-                    contact.put("startdate", startdate);
-                    contact.put("avatar", avatar);
-                    contact.put("project", project);
-                    contact.put("hobbies", hobbies);
-                    contact.put("bio", bio);
-
-                    // adding contact to contact list
+                for (int i = 0; i < jsonResult.length(); i++) {
+                    Contact contact = new Contact();
+                    JSONObject c = jsonResult.getJSONObject(i);
+                    contact.setName(c.getString("name"));
+                    contact.setPosition(c.getString("position"));
+                    contact.setBirthdate(c.getString("birthdate"));
+                    contact.setStartdate(c.getString("startdate"));
+                    contact.setAvatar(c.getString("avatar"));
+                    contact.setProject(c.getString("project"));
+                    contact.setHobbies(c.getString("hobbies"));
+                    contact.setBio(c.getString("bio"));
                     contactList.add(contact);
                 }
             } catch (final JSONException e) {
@@ -89,9 +75,9 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<HashMap<
     }
 
     @Override
-    protected void onPostExecute(ArrayList<HashMap<String, String>> hashMaps) {
-        super.onPostExecute(hashMaps);
-        mEvt.onCompleted(hashMaps);
+    protected void onPostExecute(ArrayList<Contact> contacts) {
+        super.onPostExecute(contacts);
+        mEvt.onCompleted(contacts);
     }
 }
 

@@ -1,5 +1,7 @@
 package com.example.rsauther.testapplication;
 
+import android.provider.ContactsContract;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,7 +11,7 @@ import java.util.HashMap;
 
 public interface ICallbackEvent {
 
-    void onCompleted(ArrayList<HashMap<String, String>> obj);
+    void onCompleted(ArrayList<Contact> obj);
 
     void onError(Exception e);
 
