@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import java.util.HashMap;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,10 +16,13 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Contact> mDevContactList;
     private ArrayList<Contact> mQaContactList;
     private ArrayList<Contact> mProductContactList;
+    //private ArrayList<Contact> mOtherContactList;
     private ViewPager mViewPager;
     private EmployeeListFragment mQaFragment;
     private EmployeeListFragment mDevFragment;
     private EmployeeListFragment mProductFragment;
+    //private EmployeeListFragment mOtherFragment;
+    private AdvertismentFragment mAdvertismentFragment;
     private ViewPagerAdapter mAdapter;
 
     @Override
@@ -31,20 +32,22 @@ public class MainActivity extends AppCompatActivity {
         mQaContactList = new ArrayList<>();
         mDevContactList = new ArrayList<>();
         mProductContactList = new ArrayList<>();
+        //mOtherContactList = new ArrayList<>();
         mViewPager = (ViewPager)findViewById(R.id.view_pager);
         mQaFragment = new EmployeeListFragment();
         mDevFragment = new EmployeeListFragment();
         mProductFragment = new EmployeeListFragment();
+        //mOtherFragment = new EmployeeListFragment();
+        mAdvertismentFragment = new AdvertismentFragment();
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mAdapter.addFragment(mQaFragment);
         mAdapter.addFragment(mDevFragment);
         mAdapter.addFragment(mProductFragment);
+        mAdapter.addFragment(mAdvertismentFragment);
         mViewPager.setAdapter(mAdapter);//mViewPager.setOffscreenPageLimit(3);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //ignore
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {/*ignore for now*/}
 
             @Override
             public void onPageSelected(int position) {
@@ -67,15 +70,15 @@ public class MainActivity extends AppCompatActivity {
                         mQaContactList.add(contact);
                     }else if (contact.getPosition().contains("Dev")){
                         mDevContactList.add(contact);
-                    }else if (contact.getPosition().contains("Product")){
+                    }else if (contact.getPosition().contains("Product")) {
                         mProductContactList.add(contact);
-                    }else {Log.e(TAG, "someone did not fit");}
+                    }
+                    else {Log.e(TAG, "someone did not fit");}
                 }
 
                 mQaFragment.setContacts(mQaContactList);
                 mDevFragment.setContacts(mDevContactList);
                 mProductFragment.setContacts(mProductContactList);
-
             }
 
             @Override

@@ -41,7 +41,7 @@ public class EmployeeListFragment extends Fragment {
     }
 
     public void setContacts(ArrayList<Contact> contacts){
-        if (contacts.size()!=0) {
+        if (contacts != null && contacts.size()>0) {
             mAdapter.addItems(contacts);
             mAdapter.notifyDataSetChanged();
         }

@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -35,6 +35,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
         if (position == 0) return "QA";
         if (position == 1) return "Dev";
         if (position == 2) return "Product";
+        if (position == 3) return "Other";
         return "none";
     }
 
