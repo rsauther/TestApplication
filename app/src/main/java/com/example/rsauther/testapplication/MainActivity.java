@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Lookup how to add a tablayout (type of view) to view pager
-        GetContactsTask task = new GetContactsTask(new ICallbackEvent() {
+        //GetContactsTask task = new GetContactsTask(new ICallbackEvent() {
+        GetContactsTask2 task = new GetContactsTask2(new ICallbackEvent() {
             @Override
             public void onCompleted(ArrayList<Contact> contacts) {
                 for(Contact contact : contacts){

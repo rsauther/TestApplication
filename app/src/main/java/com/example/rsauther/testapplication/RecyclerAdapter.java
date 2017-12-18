@@ -71,6 +71,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 }
 
     public void addItems(ArrayList<Contact> contacts){
+        mItems.clear();
         mItems.addAll(contacts);
     }
 
