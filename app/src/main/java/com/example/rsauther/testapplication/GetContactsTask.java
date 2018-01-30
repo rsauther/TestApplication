@@ -31,7 +31,7 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<Contact>
     protected ArrayList<Contact> doInBackground(String... args) {
 
         HttpHandler sh = new HttpHandler();
-        ArrayList<Contact> contactList = new ArrayList<>();
+        ArrayList<Contact> contactList = null;
         String url = args[0];
         // Making a request to url and getting response
         String jsonStr = null;
@@ -63,7 +63,6 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<Contact>
                     contact.setProject(c.getString("project"));
                     contact.setHobbies(c.getString("hobbies"));
                     contact.setBio(c.getString("bio"));
-                    contactList.add(contact);
                 }
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error: " + e.getMessage());

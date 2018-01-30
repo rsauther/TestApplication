@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".FragmentExampleActivity"/>
-        </application>
+        <activity android:name=".contacts.ContactActivity"/>
+    </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
 

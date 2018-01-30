@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.rsauther.testapplication.interfaces.IContactClickListener;
 import com.squareup.picasso.*;
 
 /**
@@ -34,7 +36,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         bio = (TextView) itemView.findViewById(R.id.bio);
     }
 
-    public void bind(Contact contact){
+    public void bind(Contact contact, IContactClickListener listener){
         name.setText(contact.getName());
         position.setText(contact.getPosition());
         startdate.setText(contact.getStartdate());
@@ -42,7 +44,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         project.setText(contact.getProject());
         //hobbies.setText(contact.getHobbies());
         bio.setText(contact.getBio());
-
+        listener.onContactClicked(contact);
 
     }
 

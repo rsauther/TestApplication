@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TestApplication</string>
     <string name="add_ad">Add an additional ad</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_version">Download Ver</string>
 
     <string-array name="colorNames">
         <!--<item>colorPrimary</item>-->

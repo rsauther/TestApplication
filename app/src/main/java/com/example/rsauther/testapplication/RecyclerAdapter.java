@@ -1,11 +1,15 @@
 package com.example.rsauther.testapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.rsauther.testapplication.contacts.ContactActivity;
+import com.example.rsauther.testapplication.interfaces.IContactClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position){
 //        ((AdViewHolder)holder).bind((Advertisement)mItems.get(position));
-        ((ContactViewHolder)holder).bind((Contact)mItems.get(position));
+        ((ContactViewHolder)holder).bind((Contact) mItems.get(position), new IContactClickListener() {
+            @Override
+            public void onContactClicked(Contact c) {
+                Intent i = new Intent(mContext, ContactActivity.class);
+                mContext.startActivity(i);
+            }
+        });
 
     }
     //, new View.OnClickListener() }
