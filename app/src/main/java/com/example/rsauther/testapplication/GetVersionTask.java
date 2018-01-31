@@ -23,7 +23,7 @@ public class GetVersionTask extends AsyncTask<Void, Integer, Integer> {
     protected Integer doInBackground(Void... args) {
 
         HttpHandler sh = new HttpHandler();
-        String url = "https://img.webmd.com/allergy-app-updates/iphone/ver.txt";
+        String url = "https://alburt.us/sample_xml.xml";
         // Making a request to url and getting response
         String xmlStr = null;
         try {
