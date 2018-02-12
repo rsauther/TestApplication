@@ -2,9 +2,11 @@ package com.example.rsauther.testapplication;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rsauther.testapplication.interfaces.IContactClickListener;
 import com.squareup.picasso.*;
@@ -36,7 +38,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         bio = (TextView) itemView.findViewById(R.id.bio);
     }
 
-    public void bind(Contact contact, IContactClickListener listener){
+    public void bind(final Contact contact, final IContactClickListener listener){
         //public void bind(Contact contact, View.OnClickListener listener){
         name.setText(contact.getName());
         position.setText(contact.getPosition());
@@ -45,7 +47,16 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         project.setText(contact.getProject());
         //hobbies.setText(contact.getHobbies());
         bio.setText(contact.getBio());
-        //listener.onContactClicked(contact);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("EmployeeListFragment", "RICH - Contact Clicked");
+                Toast.makeText(mContext, "Contact Clicked", Toast.LENGTH_LONG).show();
+                listener.onContactClicked(contact);
+            }
+        });
+
 
 
     }
