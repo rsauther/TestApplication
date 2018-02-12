@@ -37,6 +37,7 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Contact contact, IContactClickListener listener){
+        //public void bind(Contact contact, View.OnClickListener listener){
         name.setText(contact.getName());
         position.setText(contact.getPosition());
         startdate.setText(contact.getStartdate());
@@ -44,7 +45,8 @@ public class ContactViewHolder extends RecyclerView.ViewHolder {
         project.setText(contact.getProject());
         //hobbies.setText(contact.getHobbies());
         bio.setText(contact.getBio());
-        listener.onContactClicked(contact);
+        //listener.onContactClicked(contact);
+
 
     }
 

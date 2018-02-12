@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //mOtherContactList = new ArrayList<>();
         mViewPager = (ViewPager)findViewById(R.id.view_pager);
         mQaFragment = new EmployeeListFragment();
-        mDevFragment = new EmployeeListFragment();
+        mDevFragment = new EmployeeListFragment();//Added by Rich - one of these, not sure which
         mProductFragment = new EmployeeListFragment();
         //mOtherFragment = new EmployeeListFragment();
         mAdvertismentFragment = new AdvertismentFragment();
@@ -46,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.addFragment(mDevFragment);
         mAdapter.addFragment(mProductFragment);
         mAdapter.addFragment(mAdvertismentFragment);
-        mViewPager.setAdapter(mAdapter);//mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setAdapter(mAdapter);//
+        Log.e(TAG, "RICH - before addOnPageListener");
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {/*ignore for now*/}
 
             @Override
             public void onPageSelected(int position) {
+                Log.e(TAG, "RICH - in onPageSelected");
                 if (position == 0) mQaFragment.setContacts(mQaContactList);
                 if (position == 1) mDevFragment.setContacts(mDevContactList);
                 if (position == 2) mProductFragment.setContacts(mProductContactList);
@@ -61,26 +63,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {/*ignore for now*/}
         });
-
+        Log.e(TAG, "RICH - after addOnPageListener");
 
         //Lookup how to add a tablayout (type of view) to view pager
+        Log.e(TAG, "RICH - before GetContactsTask");
         GetContactsTask task = new GetContactsTask(new ICallbackEvent() {
             @Override
-            public void onCompleted(ArrayList<Contact> contacts) {
-                for(Contact contact : contacts){
-                    if (contact.getPosition().contains("QA")){
-                        mQaContactList.add(contact);
-                    }else if (contact.getPosition().contains("Dev")){
-                        mDevContactList.add(contact);
-                    }else if (contact.getPosition().contains("Product")) {
-                        mProductContactList.add(contact);
+            public void onCompleted(ArrayList<Contact> contacts)
+            {
+                Log.e(TAG, "RICH - in onCompleted GetContactsTask");
+                //if (contacts==null){Log.e(TAG, "RICH - it's null");}
+                //else {
+                if ((contacts != null) && (!contacts.isEmpty())) {
+                    for (Contact contact : contacts) {
+                        if (contact.getPosition().contains("QA")) {
+                            mQaContactList.add(contact);
+                        } else if (contact.getPosition().contains("Dev")) {
+                            mDevContactList.add(contact);
+                        } else if (contact.getPosition().contains("Product")) {
+                            mProductContactList.add(contact);
+                        }else {
+                            Log.e(TAG, "someone did not fit");
+                        }
                     }
-                    else {Log.e(TAG, "someone did not fit");}
-                }
+                }else{Log.e(TAG, "RICH - it's null");}
 
-                mQaFragment.setContacts(mQaContactList);
-                mDevFragment.setContacts(mDevContactList);
-                mProductFragment.setContacts(mProductContactList);
+
+                    mQaFragment.setContacts(mQaContactList);
+                    mDevFragment.setContacts(mDevContactList);
+                    mProductFragment.setContacts(mProductContactList);
+                //}
+
             }
 
             @Override
@@ -88,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
             }
         });
+        Log.e(TAG, "RICH - after GetContactsTask");
         task.execute(URL);
-
+        Log.e(TAG, "RICH - after task.execute");
     }
 
     @Override

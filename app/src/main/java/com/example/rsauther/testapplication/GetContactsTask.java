@@ -29,9 +29,10 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<Contact>
 
     @Override
     protected ArrayList<Contact> doInBackground(String... args) {
-
+        Log.e(TAG, "RICH - in ArralyList<Contact> doInBackground");
         HttpHandler sh = new HttpHandler();
-        ArrayList<Contact> contactList = null;
+        //ArrayList<Contact> contactList = null;
+        ArrayList<Contact> contactList = new ArrayList<Contact>();//Added by Rich
         String url = args[0];
         // Making a request to url and getting response
         String jsonStr = null;
@@ -63,18 +64,21 @@ public class GetContactsTask extends AsyncTask <String, Void, ArrayList<Contact>
                     contact.setProject(c.getString("project"));
                     contact.setHobbies(c.getString("hobbies"));
                     contact.setBio(c.getString("bio"));
+                    contactList.add(contact);
                 }
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error: " + e.getMessage());
                 mEvt.onError(e);
 
             }
+
         }
         return contactList;
     }
 
     @Override
     protected void onPostExecute(ArrayList<Contact> contacts) {
+        Log.e(TAG, "RICH - in onPostExecute");
         super.onPostExecute(contacts);
         mEvt.onCompleted(contacts);
     }

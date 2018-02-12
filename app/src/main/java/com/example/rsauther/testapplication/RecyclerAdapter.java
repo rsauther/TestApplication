@@ -44,11 +44,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return holder;
     }
 
-
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position){
 //        ((AdViewHolder)holder).bind((Advertisement)mItems.get(position));
+//        ((ContactViewHolder)holder).bind((Contact) mItems.get(position), new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        // what to add?
+//                    }
+//                });}
+
         ((ContactViewHolder)holder).bind((Contact) mItems.get(position), new IContactClickListener() {
             @Override
             public void onContactClicked(Contact c) {
@@ -56,8 +61,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 mContext.startActivity(i);
             }
         });
-
     }
+
+
     //, new View.OnClickListener() }
 
       //  {
@@ -67,11 +73,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
       //      }
    // });
 
-    @Override
+   // @Override
     public int getItemCount() {
         return mItems.size();
-
     }
+
 
 //    public void addItem(Advertisement a){
 //        mItems.add(a);
