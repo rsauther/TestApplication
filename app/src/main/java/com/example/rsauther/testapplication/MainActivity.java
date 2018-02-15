@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Exception e) {
-                Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
+                Log.e(TAG, "RICH - after ErrorInGetContactsTask: "+e);
             }
         });
         Log.e(TAG, "RICH - after GetContactsTask");

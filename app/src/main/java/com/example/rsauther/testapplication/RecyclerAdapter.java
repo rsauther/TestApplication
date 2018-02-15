@@ -2,6 +2,7 @@ package com.example.rsauther.testapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onContactClicked(Contact c) {
                 Intent i = new Intent(mContext, ContactActivity.class);
+                Bundle b = new Bundle();
+                b.putParcelable("contact",c);
+                i.putExtras(b);
                 mContext.startActivity(i);
             }
         });
