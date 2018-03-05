@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
     {
         GetVersionTask gvt = new GetVersionTask();
         gvt.execute();
+        Log.e(TAG, "RICH - in downloadVer");
     }
 }
 
