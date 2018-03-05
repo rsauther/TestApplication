@@ -1,15 +1,9 @@
 package com.example.rsauther.testapplication;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
+import android.os.Message;
 import android.util.Log;
-import android.widget.EditText;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -21,17 +15,22 @@ import java.net.URLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import android.os.Handler.Callback;
+
 /**
  * Created by nbhatia on 1/30/18.
  */
 
-public class GetVersionTask extends AsyncTask<Void, Integer, Integer> {
+public class GetVersionTask extends AsyncTask<Object, Object, String> {
 
     private final String TAG = GetVersionTask.class.getSimpleName();
-    private Context mContext;
+
+    private Callback mEvt;
+
+    public GetVersionTask(Callback evt) {mEvt = evt;}
 
     @Override
-    protected Integer doInBackground(Void... args) {
+    protected String doInBackground(Object... args) {
 
         HttpHandler sh = new HttpHandler();
         String url = "https://alburt.us/sample_xml.xml";
@@ -73,11 +72,21 @@ public class GetVersionTask extends AsyncTask<Void, Integer, Integer> {
             }
 
         }
-        return -1;
+        return result; //-1;
     }
 
     @Override
-    protected void onPostExecute(Integer i) {
+    protected void onPostExecute(String i) {
+        Log.e(TAG, "RICH - in GetVersionTask onPostExecute");
         super.onPostExecute(i);
+        //Message message = new Message();
+        //message.toString();
+        //String message = "linkSpeed = " + linkSpeed;
+        Message msg = Message.obtain(); // Creates an new Message instance
+        msg.obj = i;//message; // Put the string into Message, into "obj" field.
+        //msg.setTarget(handler); // Set the Handler
+        //msg.sendToTarget(); //Send the message
+        //mEvt.onCompleted(i);
+        mEvt.handleMessage(msg);//(message);
     }
 }

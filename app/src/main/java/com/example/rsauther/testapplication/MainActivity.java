@@ -1,11 +1,17 @@
 package com.example.rsauther.testapplication;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     //private EmployeeListFragment mOtherFragment;
     private AdvertismentFragment mAdvertismentFragment;
     private ViewPagerAdapter mAdapter;
+    private String status = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {/*ignore for now*/}
-
             @Override
             public void onPageSelected(int position) {
                 Log.e(TAG, "RICH - in onPageSelected");
@@ -59,21 +65,14 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 1) mDevFragment.setContacts(mDevContactList);
                 if (position == 2) mProductFragment.setContacts(mProductContactList);
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {/*ignore for now*/}
         });
-        Log.e(TAG, "RICH - after addOnPageListener");
-
-        //Lookup how to add a tablayout (type of view) to view pager
-        Log.e(TAG, "RICH - before GetContactsTask");
         GetContactsTask task = new GetContactsTask(new ICallbackEvent() {
             @Override
             public void onCompleted(ArrayList<Contact> contacts)
             {
                 Log.e(TAG, "RICH - in onCompleted GetContactsTask");
-                //if (contacts==null){Log.e(TAG, "RICH - it's null");}
-                //else {
                 if ((contacts != null) && (!contacts.isEmpty())) {
                     for (Contact contact : contacts) {
                         if (contact.getPosition().contains("QA")) {
@@ -87,24 +86,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }else{Log.e(TAG, "RICH - it's null");}
-
-
                     mQaFragment.setContacts(mQaContactList);
                     mDevFragment.setContacts(mDevContactList);
                     mProductFragment.setContacts(mProductContactList);
-                //}
-
             }
-
             @Override
-            public void onError(Exception e) {
-               // Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
+            public void onError(Exception e) {// Toast.makeText(getApplicationContext(), "OOOOOOOPs", Toast.LENGTH_LONG).show();
                 Log.e(TAG, "RICH - after ErrorInGetContactsTask: "+e);
             }
         });
-        Log.e(TAG, "RICH - after GetContactsTask");
         task.execute(URL);
-        Log.e(TAG, "RICH - after task.execute");
     }
 
     @Override
@@ -124,9 +115,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void downloadVer ()
     {
-        GetVersionTask gvt = new GetVersionTask();
+        GetVersionTask gvt = new GetVersionTask(new Handler.Callback(){
+
+            public boolean handleMessage(Message msg) {
+            //<code to be executed during callback>
+                Log.e(TAG, "RICH - in handleMessage");
+                String message = (String) msg.obj;
+                Log.e(TAG, "message: " + message);
+
+                new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("STATUS")
+                            .setMessage(message)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    dialog.cancel();
+                                }
+                            }).show();
+
+
+
+                return true;
+                }
+            });
+
         gvt.execute();
-        Log.e(TAG, "RICH - in downloadVer");
+        Log.e(TAG, "RICH - in downloadVer ");
     }
 }
 
