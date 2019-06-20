@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,9 +36,17 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter mAdapter;
     private String status = null;
 
+//new
+//    @Inject
+//    WeatherApiClient weatherApiClient;
+//new
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//new
+//        ((WeatherApp) getApplication()).appComponent().inject(this);
+//new
         setContentView(R.layout.activity_main);
         mQaContactList = new ArrayList<>();
         mDevContactList = new ArrayList<>();
@@ -97,6 +107,25 @@ public class MainActivity extends AppCompatActivity {
         });
         task.execute(URL);
     }
+
+//new
+//    @Override
+//    public boolean onQueryTextSubmit(String query) {
+//        if (!TextUtils.isEmpty(query)) {
+//            loadWeatherData(query);
+//        }
+//        return true;
+//    }
+//
+//    private void loadWeatherData(String cityName) {
+//        subscription = weatherApiClient.getWeatherForCity(cityName)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        // handle result
+//                );
+//    }
+//new
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
